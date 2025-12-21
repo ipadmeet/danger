@@ -49,10 +49,7 @@
 
 <body>
 
-<!-- 🔔 常時表示メッセージ -->
-<div id="top-message">
-    危険情報を共有したい方はお問合せよりお伝えください。
-</div>
+
 
 <!-- 🖊 ペンボタン -->
 <div class="pen-icon" onclick="toggleLoginUI()">✏️</div>
@@ -215,6 +212,13 @@ function submitReport() {
     selectedLocation = null;
 }
 </script>
+
+
+<!-- 🔔 常時表示メッセージ -->
+<div id="top-message">
+    投稿できるのはニゲカチのメンバーだけです。危険情報を共有いただける方はお問合せよりお伝えください。
+</div>
+
 
 <script async defer
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3WivvfQ9Y-qkXpjXwWXGGEXGKDOPhvMw&callback=initMap">
