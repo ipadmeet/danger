@@ -11,15 +11,6 @@
     width: 100%;
 }
 
-/* 上部メッセージ */
-#top-message {
-    padding: 10px;
-    background: #f5f5f5;
-    border-bottom: 1px solid #ccc;
-    font-size: 14px;
-}
-
-/* フォーム共通 */
 #login-form, #report-form {
     padding: 15px;
     border: 1px solid #ccc;
@@ -49,8 +40,6 @@
 
 <body>
 
-
-
 <!-- 🖊 ペンボタン -->
 <div class="pen-icon" onclick="toggleLoginUI()">✏️</div>
 
@@ -60,6 +49,7 @@
     <input id="password" type="password" placeholder="パスワード" style="width:90%; margin-bottom:10px;"><br>
     <button onclick="login()">ログイン</button>
     <button onclick="logout()">ログアウト</button>
+    <p id="login-status"></p>
 </div>
 
 <!-- 📝 投稿フォーム -->
@@ -107,8 +97,14 @@ function toggleLoginUI() {
 
 /* 🔐 ログイン状態監視 */
 auth.onAuthStateChanged(user => {
-    document.getElementById("report-form").style.display =
-        user ? "block" : "none";
+    if (user) {
+        document.getElementById("report-form").style.display = "block";
+        document.getElementById("login-status").textContent = "ログイン中";
+    } else {
+        document.getElementById("report-form").style.display = "none";
+        document.getElementById("login-status").textContent =
+            "投稿できるのはニゲカチのメンバーだけです。危険情報を共有いただける方はお問合せよりお伝えください。";
+    }
 });
 
 /* 🔐 ログイン */
@@ -156,7 +152,7 @@ function initMap() {
     listenForReports();
 }
 
-/* 📍 投稿表示 */
+/* 📍 投稿データ表示 */
 function listenForReports() {
     db.collection("reports").onSnapshot(snapshot => {
         snapshot.docChanges().forEach(change => {
@@ -212,13 +208,6 @@ function submitReport() {
     selectedLocation = null;
 }
 </script>
-
-
-<!-- 🔔 常時表示メッセージ -->
-<div id="top-message">
-    投稿できるのはニゲカチのメンバーだけです。危険情報を共有いただける方はお問合せよりお伝えください。
-</div>
-
 
 <script async defer
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3WivvfQ9Y-qkXpjXwWXGGEXGKDOPhvMw&callback=initMap">
